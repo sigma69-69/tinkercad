@@ -12,3 +12,66 @@ https://www.tinkercad.com/things/jXChi69ECoi
 air quality :
 https://www.tinkercad.com/things/dQMI4XT8c11
 
+
+robotics 7 forward kinematics :
+ 
+ import numpy as np
+# Define the joint angles in radians
+theta1 = np.pi/6
+theta2 = np.pi/4
+theta3 = np.pi/3
+theta4 = np.pi/2
+# Define the lengths of the links
+L1 = 2
+L2 = 1.5
+L3 = 1
+L4 = 0.5
+# Calculate the end effector position
+x = L1*np.cos(theta1) + L2*np.cos(theta1+theta2) +
+L3*np.cos(theta1+theta2+theta3) + L4*np.cos(theta1+theta2+theta3+theta4)
+y = L1*np.sin(theta1) + L2*np.sin(theta1+theta2) + L3*np.sin(theta1+theta2+theta3)
++ L4*np.sin(theta1+theta2+theta3+theta4)
+print(f"The end effector position is ({x}, {y})")
+
+
+
+robotics 8 inverse kinemaics :
+
+import numpy as np
+# Define the end effector position
+x = 1.5
+y = 0.5
+# Define the link lengths
+L1 = 2
+L2 = 1.5
+# Calculate the joint angles using inverse kinematics
+theta2 = np.arccos((x**2 + y**2 - L1**2 - L2**2) / (2 * L1 * L2))
+theta1 = np.arctan2(y, x) - np.arctan2(L2 * np.sin(theta2), L1 + L2 * np.cos(theta2))
+print(f"The joint angles are ({theta1}, {theta2}) in radians")
+
+
+
+
+10 exp code :
+
+
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+image = cv2.imread(r"C:\Users\manoj\Downloads\images.jpeg")
+image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+plt.figure(figsize=(20, 20))
+plt.subplot(2, 2, 1)
+plt.title("Original")
+plt.imshow(image)
+kernel_3x3 = np.ones((3, 3), np.float32) / 9
+blurred = cv2.filter2D(image, -1, kernel_3x3)
+plt.subplot(2, 2, 2)
+plt.title("3x3 Kernel Blurring")
+plt.imshow(blurred)
+kernel_7x7 = np.ones((7, 7), np.float32) / 49
+blurred2 = cv2.filter2D(image, -1, kernel_7x7)
+plt.subplot(2, 2, 3)
+plt.title("7x7 Kernel Blurring")
+plt.imshow(blurred2)
+
